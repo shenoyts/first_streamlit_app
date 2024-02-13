@@ -25,6 +25,7 @@ def get_fruityvice_data(this_fruit_choice):
     return fruityvice_normalized
 
 # New section to display fruityvice API response
+
 streamlit.header("Fruityvice Fruit Advice!")
 try:
   fruit_choice = streamlit.text_input('What fruit would you like information about?')
@@ -43,8 +44,10 @@ def get_fruit_load_list():
 if streamlit.button('Get fruit load list'):
     my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
     my_data_rows= get_fruit_load_list()
+    streamlit.dataframe(my_data_rows)
+
 streamlit.header("The fruit load list contains: ")
-streamlit.dataframe(my_data_rows)
+
 fruit_add = streamlit.text_input('What fruit would you like ito add?','Jackfruit')
 streamlit.write('Thanks for adding ', fruit_add)
 my_cur.execute("insert into PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST values ('from streamlit')")
